@@ -1,4 +1,4 @@
-# Maintain "DotFiles" in a bare Git repository
+# Maintain "dotfiles" in a bare Git repository
 #
 # EXAMPLES
 # * dotgit status
@@ -32,3 +32,4 @@ case "${OSTYPE}" in
 esac
 
 alias dotgit='git --git-dir="${dotgit}" --work-tree="${dotgit_home}"'
+alias dotfiles=dotgit		# These two get confusing at times
