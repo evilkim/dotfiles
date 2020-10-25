@@ -1,0 +1,10 @@
+# Generic exclusions applied across all projects
+#
+# EXAMPLE
+# * dotgit ls-files --others --exclude-standard
+#
+# SEE ALSO
+# * ${dotgit}/info/exclude
+# * ~/etc/dotgit.sh
+
+*~
