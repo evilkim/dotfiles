@@ -9,6 +9,7 @@
 #
 # SEE ALSO
 # * ${dotfiles}/info/exclude
+# * https://dotfiles.github.io/inspiration/
 # * https://www.atlassian.com/git/tutorials/dotfiles
 # * ~/.gitignore
 
