@@ -14,9 +14,9 @@
 
 if [[ ${OS} == Windows_NT ]]; then
     # On Windows, keep DotFiles Git repository on OneDrive if present
-    : ${dotgit:="${OneDrive:-${HOME}}/src/.DotFiles.git"}
+    : ${dotgit:="${OneDrive:-${HOME}}/src/.dotfiles.git"}
 else
-    : ${dotgit:="${HOME}/src/.DotFiles.git"}
+    : ${dotgit:="${HOME}/src/.dotfiles.git"}
 fi
 
 dotgit_home="${HOME}"
