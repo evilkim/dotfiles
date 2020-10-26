@@ -1,6 +1,5 @@
-echo >&2 "${BASH_SOURCE}: ENTER"
+echo >&2 "${BASH_SOURCE}: ENTER" # Uncomment to help isolate any errors
 #-----------------------------------------------------------------------------#
-# echo ":${PATH}:" | grep --color=yes -F -e ":${HOME}/bin:" >&2
 
 if [[ -f /etc/skel/.bash_profile ]]; then
     # Cygwin and many *nix, will automatically chain to ~/.bashrc

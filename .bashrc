@@ -1,7 +1,8 @@
-echo >&2 "${BASH_SOURCE}: ENTER"
+echo >&2 "${BASH_SOURCE}: ENTER" # Uncomment to help isolate any errors
 #-----------------------------------------------------------------------------#
 
 function bashrc {
+    # Wrapped in function so local variables don't pollute the shell
     local custom=()
 
     # localized system-wide defaults (optional)
@@ -15,7 +16,7 @@ function bashrc {
     if [[ "${-}" = *i* ]]; then
 	# full interactive customization
 	custom+=(~/etc/*.sh)
-	if compgen -G "${HOME}/etc/${OSTYPE}/*.sh"; then
+	if compgen -G ~/etc/${OSTYPE}/\*.sh; then
 	    custom+=(~/etc/${OSTYPE}/*.sh) # vendor-specific config if any
 	fi
     else
@@ -30,7 +31,8 @@ function bashrc {
     done
 }
 
-bashrc				# equivalent to source ~/.bashrc
+bashrc
+unset -f bash
 
 #-----------------------------------------------------------------------------#
 #echo >&2 "${BASH_SOURCE}: LEAVE"
