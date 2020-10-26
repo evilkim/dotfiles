@@ -14,23 +14,20 @@
 # * ~/.gitignore
 
 if [[ ${OS} == Windows_NT ]]; then
-    # On Windows, keep DotFiles Git repository on OneDrive if present
+    # On Windows, keep dotfiles repository on OneDrive if present
     : ${dotfiles:="${OneDrive:-${HOME}}/src/.dotfiles.git"}
+
+    # Git Bash provided /cmd/git.exe doesn't understand /c prefix
+    # Native Cygwin git would understand either syntax, but simpler
+    # to just define for both in "safe" manner
+    dotfiles=$(cygpath -ms "${dotfiles}")
+    dotfiles_home=$(cygpath -ms "${HOME}")
 else
     : ${dotfiles:="${HOME}/src/.dotfiles.git"}
+    dotfiles_home="${HOME}"
 fi
 
-dotfiles_home="${HOME}"
-case "${OSTYPE}" in
-    cygwin)
-	# Git Bash provided /cmd/git.exe doesn't understand /c prefix
-	# Native Cygwin git would understand either syntax, but no need
-	if [[ "$(which git)" == "/c/Program Files/Git/cmd/git" ]]; then
-	    dotfiles=$(cygpath -ms "${dotfiles}")
-	    dotfiles_home=$(cygpath -ms "${dotfiles_home}")
-	fi
-	;;
-esac
+alias dotfiles="git --git-dir='${dotfiles}' --work-tree='${dotfiles_home}'"
+alias dotgit=dotfiles  # Errant `git` command can be re-entered as `dot!!`
 
-alias dotfiles='git --git-dir="${dotfiles}" --work-tree="${dotfiles_home}"'
-alias dotgit=dotfiles		# So `git ...` can be re-entered as `dot!!`
+unset dotfiles_home		# discard temporary var
