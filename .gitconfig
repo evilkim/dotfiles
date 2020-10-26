@@ -1,3 +1,5 @@
 [user]
 	name = Kim Taylor
 	email = kim.taylor@bnymellon.com
+[core]
+	autocrlf = false
