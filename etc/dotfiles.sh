@@ -1,33 +1,30 @@
 # Maintain "dotfiles" in a bare Git repository
 #
 # EXAMPLES
-# * dotfiles status
-# * dotfiles ls-files --others --exclude-standard
-# * dotfiles add remote origin REMOTE_URL
-# * dotfiles push
-# * git clone --separate-git-dir=${dotfiles} REMOTE_URL ${HOME}
+# 1. Day-to-day usage:
+#   * dotfiles status
+#   * dotfiles ls-files --exclude-standard --others
+#   * dotfiles add remote origin REMOTE_URL
+#   * dotfiles push
+# 2. Configure new server:
+#   * dotfiles=/path/to/dotfiles/repo # align with definition below
+# 2a. Using a bare repository:
+#   * git clone --bare REMOTE_URL ${dotfiles}
+#   * git --git-dir=${dotfiles} --work-tree=${HOME} checkout [-f] # or:
+#   * git --git-dir=${dotfiles} checkout-index -a [-f] ${HOME}/
+# 2b. TESTME: Using a separate repository (creates a .git "symlink"):
+#   * git clone --separate-git-dir=${dotfiles} REMOTE_URL ${HOME}
+#   * mv ${HOME}/.git ${HOME}/.dotfiles.git
+#   * git --git-dir=${HOME}/.dotfiles.git config --add core.worktree ${HOME}
+#   * alias dotfiles='git --git-dir=${HOME}/.dotfiles.git'
 #
 # SEE ALSO
-# * ${dotfiles}/info/exclude
+# * ${dotfiles}/info/exclude # maintained by hand and is *not* committed!
+# * dotfiles config status.showUntrackedFiles no # in lieu of the above
 # * https://dotfiles.github.io/inspiration/
 # * https://www.atlassian.com/git/tutorials/dotfiles
 # * ~/.gitignore
 
-if [[ ${OS} == Windows_NT ]]; then
-    # On Windows, keep dotfiles repository on OneDrive if present
-    : ${dotfiles:="${OneDrive:-${HOME}}/src/.dotfiles.git"}
-
-    # Git Bash provided /cmd/git.exe doesn't understand /c prefix
-    # Native Cygwin git would understand either syntax, but simpler
-    # to just define for both in "safe" manner
-    dotfiles=$(cygpath -ms "${dotfiles}")
-    dotfiles_home=$(cygpath -ms "${HOME}")
-else
-    : ${dotfiles:="${HOME}/src/.dotfiles.git"}
-    dotfiles_home="${HOME}"
-fi
-
-alias dotfiles="git --git-dir='${dotfiles}' --work-tree='${dotfiles_home}'"
+: ${dotfiles:="${HOME}/.dotfiles.git"}
+alias dotfiles="git --git-dir='${dotfiles}' --work-tree='${HOME}'"
 alias dotgit=dotfiles  # Errant `git` command can be re-entered as `dot!!`
-
-unset dotfiles_home		# discard temporary var
