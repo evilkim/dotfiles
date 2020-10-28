@@ -3,7 +3,7 @@
 # * dotfiles config --add core.excludesFile ~/.dotfiles.gitignore
 #
 # EXAMPLE
-# * dotgit ls-files --exclude-standard --others
+# * dotfiles ls-files --exclude-standard --others
 #
 # SEE ALSO
 # * ~/.gitignore
