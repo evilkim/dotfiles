@@ -1,0 +1,77 @@
+# Specific exclusions configured for the ~/.dotfiles.git repository.
+# Replace unmanaged GIT_DIR/info/exclude with this file:
+# * dotfiles config --add core.excludesFile ~/.dotfiles.gitignore
+#
+# EXAMPLE
+# * dotgit ls-files --exclude-standard --others
+#
+# SEE ALSO
+# * ~/.gitignore
+# * ~/etc/dotfiles.sh
+# * https://git-scm.com/docs/gitignore
+
+# "My" stuff
+# /bin/* should be installed from src
+# /opt/* should be installed from ~/Downloads
+# /src is a symlink, so no trailing /
+# /src/* should be in its own Git repo
+
+/.bash_history*
+/.cache/
+/.docker/
+/.dotfiles.git
+/.emacs.d/.emacs.desktop*
+/.emacs.d/elpa/
+/.lesshst
+/.pd.d/
+/.pylint.d/
+/.ssh/
+/.viminfo
+/bin/
+/opt/
+/src
+
+/.VirtualBox/
+/VirtualBox VMs/
+
+/.vagrant.d/
+/vagrant_getting_started/
+
+# Windows stuff
+
+/*.ps1
+/LocalAdmins.log
+/NTUSER*
+/UnCheckIEAutoDetect.log
+/mysql.txt
+
+/3D Objects/
+/AppData/
+/Contacts/
+/Desktop/
+/Documents/
+/Downloads/
+/Favorites/
+/HyperV/
+/IntelGraphicsProfiles/
+/Links/
+/MicrosoftEdgeBackups/
+/Music/
+/OneDrive - BNY Mellon/
+/OneDrive/
+/Saved Games/
+/Searches/
+/Videos/
+
+# Windows symlinks that Git Bash ignores but Cygwin does not
+
+Application Data
+Cookies
+Local Settings
+My Documents
+NetHood
+PrintHood
+Recent
+SendTo
+Start Menu
+Templates
