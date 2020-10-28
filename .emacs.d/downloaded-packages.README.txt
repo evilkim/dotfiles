@@ -1,9 +1,13 @@
-# yaml-mode
+# Optional Emacs Packages
+
+Use these manual steps when firewall denies use of M-x package-install.
+
+## yaml-mode
 
 https://melpa.org/packages/yaml-mode-20200725.1836.el
 M-x package-install-file RET ~/Downloads/Emacs/yaml-mode-20200725.1836.el
 
-# indent-tools and pre-requisites:
+## indent-tools and pre-requisites:
 
 https://melpa.org/packages/s-20180406.808.el
 M-x package-install-file RET ~/Downloads/Emacs/s-20180406.808.el
