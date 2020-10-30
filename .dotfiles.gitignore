@@ -25,11 +25,14 @@
 /.lesshst
 /.pd.d/
 /.pylint.d/
+/.python_history
 /.ssh/
 /.viminfo
 /bin/
 /opt/
 /src
+
+/etc/proxy.sh
 
 /.VirtualBox/
 /VirtualBox VMs/
