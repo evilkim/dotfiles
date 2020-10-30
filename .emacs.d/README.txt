@@ -2,10 +2,10 @@
 
 Use these manual steps when firewall denies use of M-x package-install.
 
-## yaml-mode
+## markdown-mode
 
-https://melpa.org/packages/yaml-mode-20200725.1836.el
-M-x package-install-file RET ~/Downloads/Emacs/yaml-mode-20200725.1836.el
+https://melpa.org/packages/markdown-mode-20201015.1327.el
+M-x package-install-file RET ~/Downloads/Emacs/markdown-mode-20201015.1327.el
 
 ## indent-tools and pre-requisites:
 
@@ -23,3 +23,8 @@ M-x package-install-file RET ~/Downloads/Emacs/yafolding-20200119.1353.el
 
 https://melpa.org/packages/indent-tools-20190606.1642.tar
 M-x package-install-file RET ~/Downloads/Emacs/indent-tools-20190606.1642.tar
+
+## yaml-mode
+
+https://melpa.org/packages/yaml-mode-20200725.1836.el
+M-x package-install-file RET ~/Downloads/Emacs/yaml-mode-20200725.1836.el
