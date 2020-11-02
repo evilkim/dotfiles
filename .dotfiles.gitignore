@@ -16,12 +16,15 @@
 # /src is a symlink, so no trailing /
 # /src/* should be in its own Git repo
 
+/.ansible/
+/.authinfo
 /.bash_history*
 /.cache/
 /.docker/
 /.dotfiles.git
 /.emacs.d/.emacs.desktop*
 /.emacs.d/elpa/
+/.emacs.d/tramp
 /.lesshst
 /.pd.d/
 /.pylint.d/
@@ -29,10 +32,9 @@
 /.ssh/
 /.viminfo
 /bin/
+/etc/proxy.sh
 /opt/
 /src
-
-/etc/proxy.sh
 
 /.VirtualBox/
 /VirtualBox VMs/
