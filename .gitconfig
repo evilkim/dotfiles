@@ -5,3 +5,5 @@
 	autocrlf = false
 [credential]
 	helper = cache --timeout=36000
+[help]
+	format = web
