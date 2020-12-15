@@ -10,4 +10,8 @@ function prompt_status {
     return ${rc}
 }
 
-PROMPT_COMMAND="prompt_status;${PROMPT_COMMAND}"
+# N,B: prompt_status must appear 1st to capture ${?}
+PROMPT_COMMAND="prompt_status;history -a;"
+
+# SEE ALSO
+# * ~/etc/history.sh
