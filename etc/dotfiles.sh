@@ -34,7 +34,7 @@ function dotfiles-untracked {
     local result="/tmp/${FUNCNAME}.txt"
     # DotFiles are relative to ${HOME}
     # Cygwin git respects whereas Git for Windows ignores core.excludedFiles, so make it explicit
-    (cd ~ && dotfiles ls-files --other --exclude-standard --exclude-from "$(dotfiles config --get core.excludesFile || /dev/null)") |
+    (builtin cd ~ && dotfiles ls-files --other --exclude-standard --exclude-from "$(dotfiles config --get core.excludesFile || /dev/null)") |
         tee "${result}" |
         if grep .; then
             echo >&2 "${BASH_SOURCE}: Untracked DotFiles in ${result}"
@@ -47,7 +47,7 @@ function dotfiles-modified {
     # Report any modified DotFiles
     local result="/tmp/${FUNCNAME}.txt"
     # DotFiles are relative to ${HOME}
-    (cd ~ && dotfiles ls-files --modified) |
+    (builtin cd ~ && dotfiles ls-files --modified) |
         tee "${result}" |
         if grep .; then
             echo >&2 "${BASH_SOURCE}: Modified DotFiles in ${result}"
