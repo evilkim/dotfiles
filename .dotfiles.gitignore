@@ -1,20 +1,48 @@
 # Specific exclusions configured for the ~/.dotfiles.git repository.
-# Replace unmanaged GIT_DIR/info/exclude with this file:
-# * dotfiles config --add core.excludesFile ~/.dotfiles.gitignore
+#
+# DESCRIPTION
+#
+# The DotFiles repository contains configuration files deployed under the
+# HOME directory, which also contains a lot of files and directories
+# Git should ignore.
+#
+# These exclusions don't belong in the global ~/.gitignore file and
+# can be managed in several ways:
+#
+# 1. Add exclusions to a repo-specific `${dotfiles}/info/exclude` file.
+# 2. Configure this file at the repo-level:
+#    * `dotfiles config --add core.excludesFile ~/.dotfiles.gitignore`
+# 3. Configure this file on-the-fly at the command line level:
+#    * `dotfiles -c core.excludesFile=${HOME}/.dotfiles.gitignore` ...
+#
+# The 1st choice is respected by both Cygwin Git and Git for Windows (G4W),
+# but that file itself is not version controlled.
+#
+# The 2nd choice works for Cygwin Git which merges repo-level with
+# global exclusions. However, G4W does not respect (ahem, "ignores")
+# that configuration and uses only global.
+#
+# The 3rd choice works for both Cygwin Git and G4W.
 #
 # EXAMPLE
+#
+# Following the 2nd choice above, running this command under both Cygwin
+# Git and G4W can show unexpected differences:
 # * dotfiles ls-files --exclude-standard --others
+# This can be overcome with `dotfiles ls-files --excludes-from
+# ${HOME}/.dotfiles.gitignore`, but that option is specific to the
+# ls-files command.
 #
 # SEE ALSO
-# * ~/.gitignore
-# * ~/etc/dotfiles.sh
-# * https://git-scm.com/docs/gitignore
+# * ~/.gitignore	-- The default global core.excludesFile
+# * ~/etc/dotfiles.sh	-- Defines ${dotfiles} and dotfiles
 
 # "My" stuff
-# /bin/* should be installed from src
+
+# /bin/* should be installed from /src/*
 # /opt/* should be installed from ~/Downloads
 # /src is a symlink, so no trailing /
-# /src/* should be in its own Git repo
+# /src/* should be separate Git repo(s)
 
 /.ansible/
 /.authinfo
@@ -37,12 +65,12 @@
 /src
 
 /.VirtualBox/
-/VirtualBox VMs/
+/VirtualBox\ VMs/
 
 /.vagrant.d/
 /vagrant_getting_started/
 
-# Windows stuff
+# Windows files and dirs/ cluttering up USERPROFILE a/k/a HOME
 
 /*.ps1
 /LocalAdmins.log
@@ -50,7 +78,7 @@
 /UnCheckIEAutoDetect.log
 /mysql.txt
 
-/3D Objects/
+/3D\ Objects/
 /AppData/
 /Contacts/
 /Desktop/
@@ -62,21 +90,21 @@
 /Links/
 /MicrosoftEdgeBackups/
 /Music/
-/OneDrive - BNY Mellon/
-/OneDrive/
-/Saved Games/
+/OneDrive*/
+/Saved\ Games/
 /Searches/
 /Videos/
 
-# Windows symlinks that Git Bash ignores but Cygwin does not
+# Windows symlinks that G4W recognize as directories, but Cygwin does not.
+# Drop the trailing "/" and both are happy.
 
-Application Data
-Cookies
-Local Settings
-My Documents
-NetHood
-PrintHood
-Recent
-SendTo
-Start Menu
-Templates
+/Application\ Data
+/Cookies
+/Local\ Settings
+/My\ Documents
+/NetHood
+/PrintHood
+/Recent
+/SendTo
+/Start\ Menu
+/Templates
