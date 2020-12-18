@@ -1,10 +1,22 @@
-# Generic exclusions applied across all projects
+# Generic exclusions applied across all projects (repositories)
 #
-# EXAMPLE
-# * dotfiles ls-files --others --exclude-standard
+# EXAMPLES
+# * git check-ignore -v -n .gitignore* *~
+# * git ls-files --ignored --exclude-standard
+# * git status --ignored
 #
 # SEE ALSO
-# * ${dotfiles}/info/exclude
-# * ~/etc/dotfiles.sh
+# * https://git-scm.com/docs/gitignore
+# * ~/.dotfiles.gitignore	-- Specific exclusions for the DotFiles repo
 
+# Emacs backups
 *~
+
+# Windows does not permit embedded colons (:) in filenames.
+# Cygwin somehow bypasses that restriction and git-ls-files prints
+# such filenames verbatim.
+# However, Git for Windows does not play along and git-ls-files
+# escapes colons by default, but see git-config core.quotePath=false.
+# This difference in behavior cannot be reconciled, so just keep such
+# filenames out of Git entirely.
+*:*
