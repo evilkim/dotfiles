@@ -11,38 +11,42 @@
 
 : ${pd:="${HOME}/.pd.d"}  # Allow override for use on NFS mounted HOME
 
-if [[ -e "${pd}/debug" ]]; then
-    pd_debug='echo >&2 "${BASH_SOURCE}: ${FUNCNAME} ${*}"'
-else
-    pd_debug=""
-fi
+# touch/rm "${pd}/debug" to enable/disable debugging
+pd_debug='[[ -e "${pd}/debug" ]] &&'
+pd_debug+=' echo >&2 "${BASH_SOURCE}: ${FUNCNAME} ${*}" || :'
+
+# pd is interactive - do not redefine cd, dirs, popd, pushd in subshells
+_pd_eval='[[ "${BASH_SUBSHELL}" == 0 ]] || '
+_pd_eval+='{ builtin "${FUNCNAME}" "${@}"; return; };'
+_pd_eval+="${pd_debug}"
 
 function cd {
-    eval ${pd_debug}
+    eval ${_pd_eval}
     builtin cd "${@}" >/dev/null
     dirs
 }
 
 function dirs {
-    eval ${pd_debug}
+    eval ${_pd_eval}
     builtin dirs -l -p >| "${pd}/dirstack"
     builtin dirs -v
 }
 
 function pushd {
-    eval ${pd_debug}
+    eval ${_pd_eval}
     builtin pushd "${@}" >/dev/null
     dirs
 }
 
 function popd {
-    eval ${pd_debug}
+    eval ${_pd_eval}
     builtin popd "${@}" >/dev/null
     dirs
 }
 
-function pd_nonce {
+function _pd_nonce {
     # Initialize DIRSTACK from ${pd}/dirstack once per shell
+    function _pd_nonce { :; }
     eval ${pd_debug}
     if [[ ${#DIRSTACK[@]} == 1 ]]; then
 	mkdir -p "${pd}"
@@ -56,12 +60,11 @@ function pd_nonce {
 	    fi
 	done <<< $(tac "${pd}/dirstack") # cat in reverse
     fi
-    function pd_nonce { :; }
 }
 
 function pd {
-    pd_nonce
-    eval ${pd_debug}
+    eval ${_pd_eval}
+    _pd_nonce
     case "${1:-}" in
         '=')
 	    if [[ ${#} != 1 ]]; then
