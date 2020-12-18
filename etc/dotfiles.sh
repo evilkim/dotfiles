@@ -26,35 +26,19 @@
 # * ~/.gitignore
 
 : ${dotfiles:="${HOME}/.dotfiles.git"}
-alias dotfiles="git --git-dir='${dotfiles}' --work-tree='${HOME}'"
+
+function dotfiles {
+    # See ~/.dotfiles.gitignore for why this G4W workaround is needed
+    local g4w=(-c core.excludesfile="${HOME}/.dotfiles.gitignore")
+    [[ "${OSTYPE}" == msys ]] || g4w=()
+    # DotFiles are relative to ${HOME}
+    git -C "${HOME}"\
+	--git-dir="${dotfiles}"\
+	--work-tree="${HOME}"\
+	"${g4w[@]}" "${@}"
+}
+
 alias dotgit=dotfiles  # Errant `git` command can be re-entered as `dot!!`
 
-function dotfiles-untracked {
-    # Report any untracked DotFiles
-    local result="/tmp/${FUNCNAME}.txt"
-    # DotFiles are relative to ${HOME}
-    # Cygwin git respects whereas Git for Windows ignores core.excludedFiles, so make it explicit
-    (builtin cd ~ && dotfiles ls-files --other --exclude-standard --exclude-from "$(dotfiles config --get core.excludesFile || /dev/null)") |
-        tee "${result}" |
-        if grep .; then
-            echo >&2 "${BASH_SOURCE}: Untracked DotFiles in ${result}"
-        else
-            echo >&2 "${BASH_SOURCE}: No untracked DotFiles"
-        fi
-}
-
-function dotfiles-modified {
-    # Report any modified DotFiles
-    local result="/tmp/${FUNCNAME}.txt"
-    # DotFiles are relative to ${HOME}
-    (builtin cd ~ && dotfiles ls-files --modified) |
-        tee "${result}" |
-        if grep .; then
-            echo >&2 "${BASH_SOURCE}: Modified DotFiles in ${result}"
-        else
-            echo >&2 "${BASH_SOURCE}: No modified DotFiles"
-        fi
-}
-
-dotfiles-untracked > /dev/null
-dotfiles-modified > /dev/null
+# Show status upon login:
+(dotfiles status -sb)
