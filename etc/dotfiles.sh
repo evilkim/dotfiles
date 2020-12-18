@@ -41,4 +41,4 @@ function dotfiles {
 alias dotgit=dotfiles  # Errant `git` command can be re-entered as `dot!!`
 
 # Show status upon login:
-(dotfiles status -sb)
+(dotfiles status -s)
