@@ -9,7 +9,8 @@
 # * pd - [ARGS]		popd [ARGS]
 # * pd -N		popd +N
 
-: ${pd:="${HOME}/.pd.d"}  # Allow override for use on NFS mounted HOME
+# Override dirstack location as desired to share across NFS mounted HOME
+: ${pd:="${HOME}/.pd.d/${HOSTNAME}.${OSTYPE}"}
 
 # touch/rm "${pd}/debug" to enable/disable debugging
 pd_debug='[[ -e "${pd}/debug" ]] &&'
@@ -53,12 +54,13 @@ function _pd_nonce {
 	touch "${pd}/dirstack"
 	declare -A seen=(["${PWD}"]=exists)
 	local dir
-	while read dir; do
-	    if [[ ! "${seen["${dir}"]+duplicate}" ]]; then
-		seen["${dir}"]=exists
-		builtin pushd -n "${dir}" >/dev/null
-	    fi
-	done <<< $(tac "${pd}/dirstack") # cat in reverse
+	tac "${pd}/dirstack" |  # cat in reverse
+	    while read dir; do
+	        if [[ ! "${seen["${dir}"]+duplicate}" ]]; then
+		    seen["${dir}"]=exists
+		    builtin pushd -n "${dir}" >/dev/null
+	        fi
+	    done
     fi
 }
 
