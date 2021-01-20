@@ -53,6 +53,7 @@
 /.emacs.d/.emacs.desktop*
 /.emacs.d/elpa/
 /.emacs.d/tramp
+/.engine/
 /.lesshst
 /.pd.d/
 /.pylint.d/
