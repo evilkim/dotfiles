@@ -19,6 +19,9 @@ function bashrc {
 	if compgen -G ~/etc/${OSTYPE}/\*.sh; then
 	    custom+=(~/etc/${OSTYPE}/*.sh) # vendor-specific config if any
 	fi
+	if compgen -G ~/etc/local.d/\*.sh; then
+	    custom+=(~/etc/local.d/*.sh) # local config if any (not shared)
+	fi
     else
 	# selective non-interactive customization
 	custom+=(~/etc/{env,path}.sh)
