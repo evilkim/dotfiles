@@ -61,7 +61,6 @@
 /.ssh/
 /.viminfo
 /bin/
-/etc/proxy.sh
 /opt/
 /src
 
@@ -70,6 +69,11 @@
 
 /.vagrant.d/
 /vagrant_getting_started/
+
+# Symlink to additional local configuration (if any). This is not
+# tracked as it is assumed to contain potentially sensitive info.
+
+/etc/local.d
 
 # Windows files and dirs/ cluttering up USERPROFILE a/k/a HOME
 
