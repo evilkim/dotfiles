@@ -49,19 +49,21 @@ function _pd_nonce {
     # Initialize DIRSTACK from ${pd}/dirstack once per shell
     function _pd_nonce { :; }
     eval ${pd_debug}
+    #echo >&2 "${BASH_SOURCE}: ${FUNCNAME}: DIRSTACK=(${DIRSTACK[*]})"
     if [[ ${#DIRSTACK[@]} == 1 ]]; then
 	mkdir -p "${pd}"
 	touch "${pd}/dirstack"
 	declare -A seen=(["${PWD}"]=exists)
 	local dir
-	tac "${pd}/dirstack" |  # cat in reverse
-	    while read dir; do
-	        if [[ ! "${seen["${dir}"]+duplicate}" ]]; then
-		    seen["${dir}"]=exists
-		    builtin pushd -n "${dir}" >/dev/null
-	        fi
-	    done
+	while read dir; do
+	    #echo >&2 "${BASH_SOURCE}: ${FUNCNAME}: dir=${dir}/."
+	    if [[ ! "${seen["${dir}"]+duplicate}" ]]; then
+		seen["${dir}"]=exists
+		builtin pushd -n "${dir}" >/dev/null
+	    fi
+	done <<< $(tac "${pd}/dirstack") # cat in reverse
     fi
+    #echo >&2 "${BASH_SOURCE}: ${FUNCNAME}: DIRSTACK=(${DIRSTACK[*]})"
 }
 
 function pd {
