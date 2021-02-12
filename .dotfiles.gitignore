@@ -41,7 +41,6 @@
 
 # /bin/* should be installed from /src/*
 # /opt/* should be installed from ~/Downloads
-# /src is a symlink, so no trailing /
 # /src/* should be separate Git repo(s)
 
 /.ansible/
@@ -62,7 +61,6 @@
 /.viminfo
 /bin/
 /opt/
-/src
 
 /.VirtualBox/
 /VirtualBox\ VMs/
@@ -83,6 +81,8 @@
 /UnCheckIEAutoDetect.log
 /mysql.txt
 
+/.openjfx/
+/.squirrel-sql/
 /3D\ Objects/
 /AppData/
 /Contacts/
@@ -113,3 +113,10 @@
 /SendTo
 /Start\ Menu
 /Templates
+
+# Similar to above, Cygwin symlinks to directories are not recognized
+# with the trailing / by either Cygwin or G4W Git.
+
+/Desktop
+/OneDrive
+/src
