@@ -38,9 +38,11 @@
  ;; If there is more than one, they won't work right.
  '(desktop-files-not-to-save "^$")
  '(desktop-save-mode t)
+ '(diff-command "C:\\PROGRA~1\\Git\\usr\\bin\\diff.exe")
  '(package-selected-packages
    '(markdown-mode indent-tools yafolding hydra lv s yaml-mode ##))
  '(show-trailing-whitespace t)
+ '(vc-make-backup-files t)
  '(version-control t))
 
 (custom-set-faces
