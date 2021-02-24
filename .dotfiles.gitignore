@@ -73,14 +73,22 @@
 
 /etc/local.d
 
-# Windows files and dirs/ cluttering up USERPROFILE a/k/a HOME
+# Files and dirs/ cluttering up USERPROFILE a/k/a HOME
+# Some of these are normal Windows crud
+# Some of these are from add-on apps and contain semi-sensitive info
 
 /*.ps1
+/.python-gitlab.cfg
+/.tower_cli.cfg
 /LocalAdmins.log
 /NTUSER*
 /UnCheckIEAutoDetect.log
+/etc/jira-cli.sh
 /mysql.txt
 
+/.aws/
+/.jira-cli/
+/.local/
 /.openjfx/
 /.squirrel-sql/
 /3D\ Objects/
@@ -99,6 +107,7 @@
 /Saved\ Games/
 /Searches/
 /Videos/
+/tmp/
 
 # Windows symlinks that G4W recognize as directories, but Cygwin does not.
 # Drop the trailing "/" and both are happy.
