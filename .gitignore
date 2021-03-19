@@ -12,6 +12,9 @@
 # Emacs backups
 *~
 
+# Other backups
+*.bak
+
 # Windows does not permit embedded colons (:) in filenames.
 # Cygwin somehow bypasses that restriction and git-ls-files prints
 # such filenames verbatim.
