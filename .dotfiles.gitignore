@@ -129,3 +129,18 @@
 /.desktop
 /.onedrive
 /src
+
+# Directory junctions are universally recognized by Windows, Cygwin, and G4W?
+# E.g: cmd /c mklink /J 1src "${OneDrive}"\\src
+
+# NOT :-(
+
+# These work for/are recognized by G4W:
+/1Desktop/
+/1Drive/
+/1src/
+
+# But only with trailing / removed does Cygwin Git ignore these:
+/1Desktop
+/1Drive
+/1src
