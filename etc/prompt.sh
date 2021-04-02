@@ -5,7 +5,7 @@ function prompt_status {
     local rc=${?}
     if ((rc)); then
 	local red=$'\e[0;31m' reset=$'\e[0m'
-	echo "${red}[RC=${rc}]${reset}"
+	echo "[${red}RC=${rc}${reset}]"
     fi
     return ${rc}
 }
