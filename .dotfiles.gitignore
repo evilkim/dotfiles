@@ -144,3 +144,10 @@
 /1Desktop
 /1Drive
 /1src
+
+# Secrets
+/.netrc
+## Kerberos keytab (KT)
+/.*.kt
+## JSON Web Token (JWT)
+/.*.jwt
