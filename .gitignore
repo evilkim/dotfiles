@@ -9,8 +9,13 @@
 # * https://git-scm.com/docs/gitignore
 # * ~/.dotfiles.gitignore	-- Specific exclusions for the DotFiles repo
 
-# Emacs backups
+# Emacs backups and temp files
 *~
+\#*\#
+.\#*
+
+# Python cache:
+/__pycache__/
 
 # Other backups
 *.bak
@@ -19,7 +24,7 @@
 # Cygwin somehow bypasses that restriction and git-ls-files prints
 # such filenames verbatim.
 # However, Git for Windows does not play along and git-ls-files
-# escapes colons by default, but see git-config core.quotePath=false.
+# escapes colons by default, (but see git-config core.quotePath=false).
 # This difference in behavior cannot be reconciled, so just keep such
 # filenames out of Git entirely.
 *:*
