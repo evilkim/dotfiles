@@ -147,7 +147,7 @@
 
 # Secrets
 /.netrc
-## Kerberos keytab (KT)
-/.*.kt
+## Kerberos keytab
+/.*.keytab
 ## JSON Web Token (JWT)
 /.*.jwt
