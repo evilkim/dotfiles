@@ -3,6 +3,7 @@
 	email = kim.taylor@bnymellon.com
 [core]
 	autocrlf = false
+	excludesfile = /c/Users/xbbj57s/.gitignore
 [credential]
 	helper = cache --timeout=36000
 [help]
