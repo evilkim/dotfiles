@@ -29,12 +29,12 @@ function awx-jobs {
 	if ${_awx_raw:-false}; then
 	    cat
 	else
-	    jq -r '["ID","STATUS","FINISHED","NAME","PLAYBOOK","DESCRIPTION"],
+	    jq -r '["ID","STATUS","FINISHED","NAME","PLAYBOOK","DESCRIPTION","USERNAME"],
 (.results[] |
   .finished |= sub("[.].*";"") |
   .finished |= sub("T";" ") |
   .finished |= sub(":[^:]*$";" ") |
-[(.id, .status, .finished, .name, .playbook, .description)]) | @tsv' |
+[(.id, .status, .finished, .name, .playbook, .description, .summary_fields.created_by.username)]) | @tsv' |
 		txt2table |
 		tsv-sort -r -k +3 |
 		expand |
@@ -112,15 +112,13 @@ declare -A -g awx_tokens
 # EXAMPLE: awx_tokens+=([TOWER_HOST]=TOWER_TOKEN)
 
 function awx-set-host {
-    # HELP - Set TOWER_HOST from nickname or URL
+    # HELP - Set TOWER_HOST from NICKNAME or URL
+    # NICKNAME can be presented in any case, it is forced to uppercase
     local result="${1:-${TOWER_HOST:-${awx_default_host:-}}}"
-    result="${result,,}"	# lowercase
-    if [[ -n "${awx_hosts[${result}]}" ]]; then
-	TOWER_HOST="${awx_hosts[${result}]}" # map nickname to URL
-    else
-	TOWER_HOST="${result}"	# URL
+    if [[ -n "${awx_hosts[${result^^}]}" ]]; then
+       result="${awx_hosts[${result^^}]}" # map NICKNAME to URL
     fi
-    export TOWER_HOST
+    export TOWER_HOST="${result}"
     # DEBUG: declare -p TOWER_HOST
     if [[ -z "${TOWER_HOST}" ]]; then
 	echo >&2 "${FUNCNAME[1]}: error: Missing TOWER_HOST"
@@ -162,3 +160,20 @@ function awx-logout {
     unset awx_tokens["${TOWER_HOST}"] # clear the cache
     # DEBUG: declare -p awx_tokens
 }
+
+function awx-whois {
+    # HELP - Lookup user email by username
+    local username="${1:-${USER}}"
+    _awx-raw awx-users --username "${username,,}" | # lowercase
+	jq -r '.results[].email'
+}
+
+# TODO: Store tokens in AWXKIT_CREDENTIAL_FILE (one per TOWER_HOST)?
+# See Also:
+# * https://docs.ansible.com/ansible-tower/latest/html/towercli/authentication.html
+# * [making the cli use AWXKIT_CREDENTIAL_FILE](https://github.com/ansible/awx/pull/9491)
+# * https://docs.ansible.com/ansible-tower/latest/html/towercli/reference.html#awx-config
+#
+# $ export AWXKIT_CREDENTIAL_FILE=~/.awx.cfg
+# $ awx-login ${TOWER_HOST}
+# $ awx config > "${TOWER_CONFIG_FILE}"
